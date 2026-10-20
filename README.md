@@ -1,2 +1,2 @@
 # AskRepo
-Web APP to chat my Github Projects
+Rag to chat with my Repos
