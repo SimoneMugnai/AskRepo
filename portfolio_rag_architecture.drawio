@@ -1,0 +1,202 @@
+<mxfile host="Electron">
+  <diagram id="portfolio-rag" name="Portfolio AI Assistant - Architettura">
+    <mxGraphModel dx="420" dy="273" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1860" pageHeight="1040" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c_src" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=13;fillColor=#fff2cc;strokeColor=#d6b656;arcSize=4;fontFamily=Verdana;" value="&lt;b&gt;SORGENTI&lt;/b&gt;" vertex="1">
+          <mxGeometry height="190" width="180" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c_ing" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;arcSize=3;fontFamily=Verdana;" value="&lt;b&gt;1. INGESTION PIPELINE (offline, batch)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="190" width="1300" x="220" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c_onl" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=3;fontFamily=Verdana;" value="&lt;b&gt;2. QUERY PIPELINE (online)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="360" width="1540" x="20" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="c_eval" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;arcSize=3;fontFamily=Verdana;" value="&lt;b&gt;3. VALUTAZIONE (offline, iterativa)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="220" width="1540" x="20" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="c_stack" parent="1" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=11;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;arcSize=4;fontFamily=Verdana;" value="&lt;b&gt;STACK LOCALE&lt;/b&gt;&lt;br&gt;&lt;br&gt;Ollama: LLM + embedding + judge&lt;br&gt;Qdrant (Docker)&lt;br&gt;LangChain: chunking, retriever&lt;br&gt;FastAPI + Streamlit&lt;br&gt;Ragas&lt;br&gt;Python 3.14 + uv" vertex="1">
+          <mxGeometry height="220" width="240" x="1600" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d6b656;fontFamily=Verdana;" value="&lt;b&gt;GitHub repos&lt;/b&gt;&lt;br&gt;README.md&lt;br&gt;*.py, *.yml&lt;br&gt;requirements / pyproject&lt;br&gt;Dockerfile" vertex="1">
+          <mxGeometry height="90" width="150" x="35" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d6b656;fontFamily=Verdana;" value="&lt;b&gt;profile.md&lt;/b&gt;&lt;br&gt;bio / CV / LinkedIn" vertex="1">
+          <mxGeometry height="45" width="150" x="35" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="i1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;1. Fetch e Load&lt;/b&gt;&lt;br&gt;GitHub API / git clone&lt;br&gt;filtri include/exclude&lt;br&gt;(no tests, venv, dist)" vertex="1">
+          <mxGeometry height="120" width="180" x="240" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;2. Parsing per tipo&lt;/b&gt;&lt;br&gt;MD: header splitter&lt;br&gt;PY: AST (docstring, classi, funzioni, import)&lt;br&gt;YAML: config → testo" vertex="1">
+          <mxGeometry height="120" width="180" x="455" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;3. LLM enrichment (Ollama)&lt;/b&gt;&lt;br&gt;File card: scopo, ruolo, dipendenze&lt;br&gt;Repo card: stack, moduli, flusso, modelli usati" vertex="1">
+          <mxGeometry height="120" width="180" x="670" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;4. Chunking parent/child&lt;/b&gt;&lt;br&gt;Parent: sezione README / file card&lt;br&gt;Child: ~300 token&lt;br&gt;metadata: repo, path, tipo, level, parent_id" vertex="1">
+          <mxGeometry height="120" width="180" x="885" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;5. Embedding&lt;/b&gt;&lt;br&gt;Dense: bge-m3 / nomic-embed-text (Ollama)&lt;br&gt;Sparse: BM25 (FastEmbed)" vertex="1">
+          <mxGeometry height="120" width="180" x="1100" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="i6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=Verdana;" value="&lt;b&gt;6. Indexing&lt;/b&gt;&lt;br&gt;child → Qdrant&lt;br&gt;parent → Parent Store&lt;br&gt;re-index incrementale (commit SHA / hash)" vertex="1">
+          <mxGeometry height="120" width="180" x="1315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="qd" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=10;fillColor=#e1d5e7;strokeColor=#9673a6;fontFamily=Verdana;" value="&lt;b&gt;Qdrant&lt;/b&gt;&lt;br&gt;collection: portfolio&lt;br&gt;dense + sparse vectors&lt;br&gt;payload: repo, path, type, level, parent_id" vertex="1">
+          <mxGeometry height="130" width="200" x="1040" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ps" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=10;fillColor=#e1d5e7;strokeColor=#9673a6;fontFamily=Verdana;" value="&lt;b&gt;Parent Store&lt;/b&gt;&lt;br&gt;SQLite / LocalFileStore&lt;br&gt;parent_id → testo completo" vertex="1">
+          <mxGeometry height="110" width="200" x="1600" y="585" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Chat UI&lt;/b&gt;&lt;br&gt;Streamlit / Gradio&lt;br&gt;selettore repo (opzionale)" vertex="1">
+          <mxGeometry height="90" width="200" x="40" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;FastAPI /chat&lt;/b&gt;&lt;br&gt;streaming (SSE)&lt;br&gt;sessione + history" vertex="1">
+          <mxGeometry height="90" width="200" x="290" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Guardrail e scope&lt;/b&gt;&lt;br&gt;solo domande sul portfolio&lt;br&gt;anti prompt-injection" vertex="1">
+          <mxGeometry height="90" width="200" x="540" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Query analysis&lt;/b&gt;&lt;br&gt;router: repo specifica / cross-repo&lt;br&gt;rewriting con history&lt;br&gt;→ filtro metadata" vertex="1">
+          <mxGeometry height="90" width="200" x="790" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="o5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Hybrid retrieval (child)&lt;/b&gt;&lt;br&gt;Dense (Ollama emb) + Sparse (BM25)&lt;br&gt;top-k per ciascuno&lt;br&gt;filtro payload su repo" vertex="1">
+          <mxGeometry height="90" width="200" x="1040" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="o6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;RRF fusion&lt;/b&gt;&lt;br&gt;score = Σ 1/(k + rank), k=60&lt;br&gt;→ top-N child" vertex="1">
+          <mxGeometry height="90" width="200" x="1300" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Parent expansion&lt;/b&gt;&lt;br&gt;child → parent_id&lt;br&gt;dedup dei parent" vertex="1">
+          <mxGeometry height="90" width="200" x="1300" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;dashed=1;fontFamily=Verdana;" value="&lt;b&gt;Reranker (opzionale)&lt;/b&gt;&lt;br&gt;cross-encoder (bge-reranker)&lt;br&gt;→ top-n parent" vertex="1">
+          <mxGeometry height="90" width="200" x="1040" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Prompt builder&lt;/b&gt;&lt;br&gt;system prompt + contesto&lt;br&gt;regole: cita le fonti, niente invenzioni" vertex="1">
+          <mxGeometry height="90" width="200" x="790" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;LLM generation&lt;/b&gt;&lt;br&gt;Ollama: qwen2.5:7b / llama3.1:8b" vertex="1">
+          <mxGeometry height="90" width="200" x="540" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#82b366;fontFamily=Verdana;" value="&lt;b&gt;Risposta + citazioni&lt;/b&gt;&lt;br&gt;repo / file / sezione&lt;br&gt;link GitHub" vertex="1">
+          <mxGeometry height="90" width="200" x="290" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;Testset (30-50 domande)&lt;/b&gt;&lt;br&gt;manuali + sintetiche (Ragas / LLM)&lt;br&gt;categorie: per-repo, cross-repo, architettura, fuori scope&lt;br&gt;con ground truth" vertex="1">
+          <mxGeometry height="110" width="210" x="40" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;Runner&lt;/b&gt;&lt;br&gt;esegue la stessa chain online&lt;br&gt;salva question, answer, contexts" vertex="1">
+          <mxGeometry height="110" width="210" x="290" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;Ragas&lt;/b&gt;&lt;br&gt;faithfulness, answer relevancy&lt;br&gt;context precision, context recall" vertex="1">
+          <mxGeometry height="70" width="240" x="540" y="815" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;LLM-as-judge&lt;/b&gt;&lt;br&gt;rubrica: correttezza, completezza, grounding&lt;br&gt;modello giudice diverso dal generatore" vertex="1">
+          <mxGeometry height="70" width="240" x="540" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;Report ed esperimenti&lt;/b&gt;&lt;br&gt;CSV / JSON (o MLflow)&lt;br&gt;confronto tra configurazioni" vertex="1">
+          <mxGeometry height="110" width="210" x="830" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=10;fillColor=#ffffff;strokeColor=#d79b00;fontFamily=Verdana;" value="&lt;b&gt;Valutazione&lt;/b&gt;&lt;br&gt;naive → +hybrid/RRF → +parent-child → +router → +rerank&lt;br&gt;scelta config → config/settings.yaml" vertex="1">
+          <mxGeometry height="110" width="300" x="1090" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="ed1" edge="1" parent="1" source="s1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed2" edge="1" parent="1" source="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed3" edge="1" parent="1" source="i1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed4" edge="1" parent="1" source="i2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed5" edge="1" parent="1" source="i3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed6" edge="1" parent="1" source="i4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed7" edge="1" parent="1" source="i5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="i6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed8" edge="1" parent="1" source="i6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;strokeColor=#9673a6;fontFamily=Verdana;" target="qd">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1410" y="295" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ed9" edge="1" parent="1" source="i6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;strokeColor=#9673a6;fontFamily=Verdana;" target="ps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo1" edge="1" parent="1" source="o1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="o2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo2" edge="1" parent="1" source="o2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="o3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo3" edge="1" parent="1" source="o3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="o4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo4" edge="1" parent="1" source="o4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="o5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo5" edge="1" parent="1" source="o5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="o6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo6" edge="1" parent="1" source="o6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="p1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo7" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="p2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo8" edge="1" parent="1" source="p2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="p3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo9" edge="1" parent="1" source="p3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="p4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo10" edge="1" parent="1" source="p4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="p5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo11" edge="1" parent="1" source="p5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;strokeColor=#b85450;fontFamily=Verdana;" target="o1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo12" edge="1" parent="1" source="o5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;startArrow=classic;strokeColor=#9673a6;fontFamily=Verdana;" target="qd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eo13" edge="1" parent="1" source="p1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;startArrow=classic;strokeColor=#9673a6;fontFamily=Verdana;" target="ps">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev1" edge="1" parent="1" source="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev2" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev3" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev4" edge="1" parent="1" source="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev5" edge="1" parent="1" source="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev6" edge="1" parent="1" source="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;fontFamily=Verdana;" target="e6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ev7" edge="1" parent="1" source="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;endArrow=classic;dashed=1;strokeColor=#d79b00;fontSize=10;fontFamily=Verdana;" target="c_onl" value="invoca la chain">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="395" y="760" />
+              <mxPoint x="790" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
