@@ -1,0 +1,39 @@
+# Python bytecode and test/tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local Python environments
+.venv/
+venv/
+env/
+
+# Environment-specific configuration and credentials
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Generated ingestion data and local vector-store state
+data/raw/
+data/processed/
+data/cache/
+data/evaluations/
+qdrant_storage/
+
+# Build and packaging output
+build/
+dist/
+*.egg-info/
+
+# Logs and editor/OS files
+*.log
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
